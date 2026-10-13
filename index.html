@@ -60,7 +60,6 @@
       
       <!-- SCREEN 1: PILIH PAKET TRYOUT -->
       <div id="viewPackages" class="max-w-4xl mx-auto bg-white/95 rounded-3xl p-6 sm:p-10 shadow-xl shadow-teal-900/5 border border-teal-100 text-center relative overflow-hidden">
-        <!-- Aksen Dekoratif Hijau Tosca Ceria -->
         <div class="absolute -top-20 -left-20 w-44 h-44 bg-teal-200/40 rounded-full blur-3xl"></div>
         <div class="absolute -bottom-20 -right-20 w-48 h-48 bg-cyan-200/40 rounded-full blur-3xl"></div>
 
@@ -74,12 +73,10 @@
             Pilihlah paket tryout di bawah ini. Kotak <b class="text-blue-700">BIRU</b> telah dibuka untuk latihan mandiri, sedangkan kotak <b class="text-amber-800">KUNING SOFT</b> akan dibuka sesuai jadwal resmi ujian!
           </p>
 
-          <!-- GRID 5 PAKET SOAL -->
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8" id="packagesGrid">
             <!-- Diinjeksi oleh JS -->
           </div>
 
-          <!-- FOOTER KREDIT RESMI -->
           <div class="pt-6 border-t border-teal-100 text-xs font-bold text-slate-600">
             Created by Muhammad Imam Suwiji. © 2026 Sie Keguruan. All rights reserved.
           </div>
@@ -104,7 +101,6 @@
             <input type="text" id="regName" required placeholder="Tulis nama lengkap siswa..." class="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none text-xs sm:text-sm font-medium bg-slate-50/50">
           </div>
 
-          <!-- DROPDOWN 53 SD KECAMATAN MRANGGEN -->
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Pilih Asal Sekolah (SD/MI)</label>
             <select id="regSchool" required class="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none text-xs sm:text-sm font-semibold bg-white cursor-pointer custom-scrollbar">
@@ -219,7 +215,7 @@
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
           <h2 class="text-2xl font-black text-slate-800">Alhamdulillah, Ujian Telah Selesai!</h2>
-          <p class="text-xs font-semibold text-slate-500 mt-1">Nilai tryout Anda telah otomatis tercatat di data rekapitulasi Korwil Mranggen.</p>
+          <p class="text-xs font-semibold text-slate-500 mt-1">Nilai tryout Anda telah otomatis tercatat dan tersinkronkan ke rekapitulasi Korwil Mranggen.</p>
 
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-6">
             <div class="p-4 rounded-2xl bg-teal-50 border border-teal-100">
@@ -322,11 +318,14 @@
             </span>
           </div>
           <h2 class="text-2xl font-black text-slate-900">Manajemen & Rekap Hasil Tryout TKA</h2>
-          <p class="text-xs text-slate-500 mt-0.5">Kontrol jadwal pembukaan 5 paket, pengelompokan rekap nilai, dan pencetakan PDF resmi.</p>
+          <p class="text-xs text-slate-500 mt-0.5">Kontrol jadwal pembukaan 5 paket, pengelompokan rekap nilai, dan sinkronisasi Google Sheet.</p>
         </div>
         
         <!-- PENGAMAN DATA & EKSPOR -->
         <div class="flex flex-wrap items-center gap-2">
+          <button onclick="syncOnlineData()" class="px-3.5 py-2 bg-teal-50 hover:bg-teal-100 text-teal-800 border border-teal-200 font-bold text-xs rounded-xl transition flex items-center gap-1.5" title="Muat data terbaru dari Google Spreadsheet">
+            🔄 Segarkan Data Online
+          </button>
           <button onclick="downloadBackupJSON()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition flex items-center gap-1.5" title="Simpan salinan cadangan ke laptop">
             💾 Unduh Backup Data
           </button>
@@ -475,6 +474,11 @@
 
   <script>
     /* =====================================================================
+       URL GOOGLE APPS SCRIPT LENGKAP DARI DEPLOYMENT ANDA
+       ===================================================================== */
+    const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzpkTESrcR7QSSaL9gmL_Kd3VZljKCQUOKEH8nklbEwACX7UHSCIFY887UaNla_p34Z/exec";
+
+    /* =====================================================================
        1. DAFTAR LENGKAP 53 SD SE-KECAMATAN MRANGGEN
        ===================================================================== */
     const LIST_SEKOLAH_MRANGGEN = [
@@ -541,7 +545,6 @@
       password: "#Robocop86"
     };
     
-    // Simpan status sesi di sessionStorage agar bertahan saat berpindah tab portal
     let isAdminLoggedIn = sessionStorage.getItem('tka_admin_auth') === 'true';
     let adminInactivityTimer = null;
     const INACTIVITY_TIMEOUT_MS = 10 * 60 * 1000; // 10 Menit
@@ -557,7 +560,6 @@
       }, INACTIVITY_TIMEOUT_MS);
     }
 
-    // Pantau aktivitas pengguna khusus saat admin sedang login
     ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll'].forEach(evt => {
       window.addEventListener(evt, () => {
         if (isAdminLoggedIn) resetAdminInactivityTimer();
@@ -568,11 +570,11 @@
        3. STATUS KUNCI 5 PAKET SOAL
        ===================================================================== */
     const DEFAULT_PACKAGE_STATUS = {
-      1: true,   // Paket 1 Terbuka (BIRU)
-      2: false,  // Paket 2 Terkunci (KUNING SOFT)
-      3: false,  // Paket 3 Terkunci (KUNING SOFT)
-      4: false,  // Paket 4 Terkunci (KUNING SOFT)
-      5: false   // Paket 5 Terkunci (KUNING SOFT)
+      1: true,
+      2: false,
+      3: false,
+      4: false,
+      5: false
     };
 
     function getPackageStatus() {
@@ -915,7 +917,7 @@
     }
 
     /* =====================================================================
-       5. RENDER MENU 5 PAKET (BIRU vs KUNING SOFT)
+       5. RENDER MENU 5 PAKET
        ===================================================================== */
     function populateSchoolDropdowns() {
       const regSelect = document.getElementById('regSchool');
@@ -944,7 +946,6 @@
         const card = document.createElement('div');
         
         if (isOpen) {
-          // BILAH KOTAK BIRU (TERBUKA)
           card.className = "group relative p-6 rounded-3xl bg-gradient-to-b from-blue-600 to-indigo-600 text-white font-bold text-base shadow-xl shadow-blue-600/25 hover:scale-[1.02] active:scale-95 transition-all text-center cursor-pointer border-2 border-blue-400";
           card.onclick = () => selectPackage(i);
           card.innerHTML = `
@@ -956,7 +957,6 @@
             <span class="block text-xs font-semibold text-blue-100 mt-1">30 Soal • 75 Menit</span>
           `;
         } else {
-          // BILAH KOTAK KUNING SOFT PASTEL (TERKUNCI & TIDAK SILAU)
           card.className = "p-6 rounded-3xl bg-gradient-to-b from-amber-50 to-amber-100 text-amber-950 font-bold text-sm border-2 border-amber-200/90 text-center select-none shadow-sm transition";
           card.innerHTML = `
             <div class="flex items-center justify-between mb-2">
@@ -1011,11 +1011,26 @@
       return local ? JSON.parse(local) : [];
     }
 
-    function saveSubmission(sub) {
+    async function saveSubmission(sub) {
+      // 1. Simpan di perangkat lokal
       const list = getStoredSubmissions();
       list.push(sub);
       localStorage.setItem('tka_submissions_v4', JSON.stringify(list));
       localStorage.setItem('tka_submissions_backup_snapshot_v4', JSON.stringify(list));
+
+      // 2. Kirim otomatis ke Google Spreadsheet online
+      if (GOOGLE_APPS_SCRIPT_URL) {
+        try {
+          await fetch(GOOGLE_APPS_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(sub)
+          });
+        } catch (err) {
+          console.warn("Gagal simpan online:", err);
+        }
+      }
     }
 
     function showScreen(screenId) {
@@ -1262,7 +1277,7 @@
       }
     }
 
-    function submitExam() {
+    async function submitExam() {
       clearInterval(examTimerInterval);
 
       let totalRawScore = 0;
@@ -1320,7 +1335,7 @@
         durationMinutes: durMin
       };
 
-      saveSubmission(record);
+      await saveSubmission(record);
 
       document.getElementById('resTotalScore').innerText = `${totalRawScore}`;
       document.getElementById('resMaxScoreLabel').innerText = `dari maks ${maxRawScore}`;
@@ -1393,7 +1408,7 @@
     }
 
     /* =====================================================================
-       7. LOGIKA DASHBOARD, FILTER & SISTEM CETAK PDF LENGKAP
+       7. LOGIKA DASHBOARD & SINKRONISASI ONLINE SPREADSHEET
        ===================================================================== */
     let selectedPackageFilter = 'ALL';
     let currentPrintSortMode = 'RANKING';
@@ -1412,7 +1427,6 @@
       renderAdminDashboard();
     }
 
-    // Fungsi Pindah Bilah tanpa perlu login ulang jika sudah terautentikasi
     function openAdminPortalPrompt() {
       if (isAdminLoggedIn) {
         switchPortal('admin');
@@ -1465,8 +1479,24 @@
         document.getElementById('adminPortal').classList.remove('hidden');
         document.getElementById('btnNavAdmin').className = "px-3.5 py-1.5 text-xs sm:text-sm font-bold rounded-xl bg-teal-600 text-white transition shadow-sm flex items-center gap-1.5";
         document.getElementById('btnNavStudent').className = "px-3.5 py-1.5 text-xs sm:text-sm font-bold rounded-xl text-slate-600 hover:bg-slate-100 transition";
-        renderAdminDashboard();
+        syncOnlineData();
       }
+    }
+
+    // Ambil data nilai dari Google Spreadsheet ke Admin Laptop
+    async function syncOnlineData() {
+      if (GOOGLE_APPS_SCRIPT_URL) {
+        try {
+          const res = await fetch(GOOGLE_APPS_SCRIPT_URL);
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            localStorage.setItem('tka_submissions_v4', JSON.stringify(data));
+          }
+        } catch (e) {
+          console.warn("Gagal mengambil data online, memuat data lokal:", e);
+        }
+      }
+      renderAdminDashboard();
     }
 
     function renderAdminDashboard() {
@@ -1481,7 +1511,7 @@
 
       document.getElementById('statTotalStudents').innerText = submissions.length;
       if (submissions.length > 0) {
-        const scores = submissions.map(s => s.finalScore);
+        const scores = submissions.map(s => Number(s.finalScore) || 0);
         const avg = Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
         document.getElementById('statAvgScore').innerText = avg;
         document.getElementById('statMaxScore').innerText = Math.max(...scores);
@@ -1513,9 +1543,9 @@
       }
 
       if (currentPrintSortMode === 'SCHOOL_ORDER') {
-        submissions.sort((a, b) => a.school.localeCompare(b.school) || b.finalScore - a.finalScore);
+        submissions.sort((a, b) => a.school.localeCompare(b.school) || (Number(b.finalScore) || 0) - (Number(a.finalScore) || 0));
       } else {
-        submissions.sort((a, b) => b.finalScore - a.finalScore || b.rawScore - a.rawScore);
+        submissions.sort((a, b) => (Number(b.finalScore) || 0) - (Number(a.finalScore) || 0) || (Number(b.rawScore) || 0) - (Number(a.rawScore) || 0));
       }
 
       const tbody = document.getElementById('adminTableBody');
@@ -1655,7 +1685,7 @@
         return;
       }
 
-      submissions.sort((a, b) => b.finalScore - a.finalScore);
+      submissions.sort((a, b) => (Number(b.finalScore) || 0) - (Number(a.finalScore) || 0));
 
       let csv = 'Peringkat,Waktu,Nama Siswa,No Absen,Asal Sekolah,Kelas,Paket,Skor Mentah,Maksimal,Nilai Akhir (100),Status\n';
       submissions.forEach((s, idx) => {
@@ -1677,59 +1707,12 @@
       populateSchoolDropdowns();
       renderPackagesMenu();
 
-      // Jika admin sudah login sebelumnya, nyalakan pemantau jeda waktu
       if (isAdminLoggedIn) {
         resetAdminInactivityTimer();
       }
 
-      // Data simulasi awal
-      if (!localStorage.getItem('tka_submissions_v4')) {
-        const dummy = [
-          {
-            id: 'TKA-1',
-            date: '13/10/2026 08:30',
-            name: 'Ahmad Faiz Pratama',
-            school: 'SD NEGERI BANDUNGREJO 1 MRANGGEN',
-            className: 'VI A',
-            absen: '05',
-            package: 'Paket 1',
-            rawScore: 84,
-            maxRawScore: 88,
-            finalScore: 95,
-            status: 'Lulus',
-            durationMinutes: 60
-          },
-          {
-            id: 'TKA-2',
-            date: '13/10/2026 08:35',
-            name: 'Nabila Zahra Putri',
-            school: 'SD NEGERI MRANGGEN 1',
-            className: 'VI B',
-            absen: '14',
-            package: 'Paket 1',
-            rawScore: 78,
-            maxRawScore: 88,
-            finalScore: 89,
-            status: 'Lulus',
-            durationMinutes: 65
-          },
-          {
-            id: 'TKA-3',
-            date: '13/10/2026 08:40',
-            name: 'Muhammad Rizky',
-            school: 'SDS IT AZ-ZAHRO MRANGGEN',
-            className: 'VI',
-            absen: '21',
-            package: 'Paket 1',
-            rawScore: 58,
-            maxRawScore: 88,
-            finalScore: 66,
-            status: 'Remedial',
-            durationMinutes: 72
-          }
-        ];
-        localStorage.setItem('tka_submissions_v4', JSON.stringify(dummy));
-      }
+      // Sync online data jika ada
+      syncOnlineData();
     });
   </script>
 </body>
