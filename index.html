@@ -605,25 +605,52 @@
       return local ? JSON.parse(local) : [];
     }
 
-    // PENGIRIMAN DATA VIA IMAGE BEACON (100% TEMBUS ANTI BLOKIR BROWSER)
+    // PENGIRIMAN DATA FORM POST MURNI VIA HIDDEN IFRAME (TEMBUS SEMUA PERANGKAT HP)
     function saveSubmission(sub) {
       const list = getStoredSubmissions();
       list.push(sub);
       localStorage.setItem('tka_submissions_v4', JSON.stringify(list));
+      localStorage.setItem('tka_submissions_backup_snapshot_v4', JSON.stringify(list));
 
       if (GOOGLE_APPS_SCRIPT_URL) {
         try {
-          const payload = encodeURIComponent(JSON.stringify(sub));
-          const pingUrl = GOOGLE_APPS_SCRIPT_URL + "?data=" + payload + "&t=" + Date.now();
-          const beacon = new Image();
-          beacon.src = pingUrl;
-          
+          const iframeName = 'hidden_submit_iframe_' + Date.now();
+          const iframe = document.createElement('iframe');
+          iframe.setAttribute('name', iframeName);
+          iframe.setAttribute('id', iframeName);
+          iframe.style.display = 'none';
+          document.body.appendChild(iframe);
+
+          const form = document.createElement('form');
+          form.setAttribute('method', 'POST');
+          form.setAttribute('action', GOOGLE_APPS_SCRIPT_URL);
+          form.setAttribute('target', iframeName);
+          form.style.display = 'none';
+
+          const inputData = document.createElement('input');
+          inputData.setAttribute('type', 'hidden');
+          inputData.setAttribute('name', 'data');
+          inputData.setAttribute('value', JSON.stringify(sub));
+          form.appendChild(inputData);
+
+          document.body.appendChild(form);
+          form.submit();
+
+          setTimeout(() => {
+            try {
+              document.body.removeChild(form);
+              document.body.removeChild(iframe);
+            } catch (cleanErr) {
+              console.warn("Pembersihan form:", cleanErr);
+            }
+          }, 4000);
+
           const statusElem = document.getElementById('submitStatusText');
           if (statusElem) {
             statusElem.innerText = "Nilai tryout Anda telah otomatis tercatat di data rekapitulasi Korwil Mranggen.";
           }
         } catch (err) {
-          console.warn("Koneksi cloud offline:", err);
+          console.warn("Gagal mengirim formulir ke Google Sheet:", err);
         }
       }
     }
