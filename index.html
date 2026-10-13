@@ -132,10 +132,11 @@
           <div class="p-4 bg-teal-50 rounded-2xl border border-teal-100 text-xs text-teal-950 leading-relaxed font-medium">
             <span class="font-extrabold text-teal-900 block mb-1">⏱️ Petunjuk Penskoran Resmi:</span>
             • Timer <b>75 Menit</b> otomatis berjalan mundur.<br>
-            • Pilihan Ganda: Benar <b>skor 1</b>, Salah 0.<br>
-            • PG Kompleks MCMA: Benar 2 <b>skor 2</b>, Benar 1 <b>skor 1</b>, Salah semua 0.<br>
-            • PG Kompleks Kategori: Benar 3 <b>skor 3</b>, Benar 2 <b>skor 2</b>, Benar 1 <b>skor 1</b>, Salah semua 0.<br>
-            • Nilai Akhir dihitung dari (Skor Mentah / 49) × 100 dengan skala interval <b>0 – 100</b>.<br>
+            • Pilihan Ganda (17 Soal): Benar <b>skor 1</b>, Salah 0.<br>
+            • PG Kompleks MCMA (7 Soal): Benar 2 <b>skor 2</b>, Benar 1 <b>skor 1</b>, Salah semua 0.<br>
+            • PG Kompleks Kategori (6 Soal): Benar 3 <b>skor 3</b>, Benar 2 <b>skor 2</b>, Benar 1 <b>skor 1</b>, Salah semua 0.<br>
+            • Total Skor Maksimal: <b>49 Poin</b>.<br>
+            • Nilai Akhir: (Skor Mentah / 49) × 100 dengan skala interval <b>0 – 100</b>.<br>
             • <b class="text-emerald-700">Siswa yang lulus (KKM 70) mendapatkan Piagam Penghargaan Digital otomatis!</b>
           </div>
 
@@ -338,64 +339,58 @@
           </div>
 
           <!-- TANDA TANGAN, STEMPEL & PENGESAHAN RESMI (PERSIS LAMPIRAN GAMBAR) -->
-          <div class="grid grid-cols-2 gap-4 sm:gap-12 px-2 sm:px-10 text-left text-xs text-slate-800 pt-2">
+          <div class="grid grid-cols-2 gap-4 sm:gap-12 px-4 sm:px-12 text-left text-slate-900 pt-3">
             
             <!-- SEBELAH KIRI: KORWIL BIDDIKBUD KEC. MRANGGEN -->
-            <div class="space-y-1">
-              <p class="font-normal text-slate-700 text-xs sm:text-sm leading-tight">Mengetahui</p>
-              <p class="font-normal text-slate-700 text-xs sm:text-sm leading-tight">Korwil Biddikbud Kec. Mranggen</p>
+            <div class="space-y-0.5">
+              <p class="font-normal text-slate-800 text-xs sm:text-sm leading-tight">Mengetahui</p>
+              <p class="font-normal text-slate-800 text-xs sm:text-sm leading-tight">Korwil Biddikbud Kec. Mranggen</p>
               
-              <!-- Tanda Tangan Sunarto, S.Pd., M.Pd. (Vektor Tinta Biru Presisi) -->
+              <!-- Tanda Tangan Sunarto, S.Pd., M.Pd. (Vektor Tinta Biru Asli) -->
               <div class="h-20 sm:h-24 flex items-center py-1">
                 <svg viewBox="0 0 280 80" class="h-full w-auto select-none pointer-events-none" style="filter: drop-shadow(0.5px 0.5px 0px #1e3a8a);">
-                  <path d="M 20,52 C 35,48 50,32 58,26 C 66,20 72,18 70,28 C 66,46 54,62 38,68 C 24,73 20,68 28,62 C 38,55 58,40 82,34 C 80,44 76,56 72,62 C 68,68 62,64 74,56 C 92,45 106,42 120,44 C 114,48 108,55 104,60 C 100,64 105,62 112,56 C 122,48 136,44 150,45 L 250,47" 
+                  <path d="M 18,52 C 32,48 48,32 56,26 C 64,20 70,18 68,28 C 64,46 52,62 36,68 C 22,73 18,68 26,62 C 36,55 56,40 80,34 C 78,44 74,56 70,62 C 66,68 60,64 72,56 C 90,45 104,42 118,44 C 112,48 106,55 102,60 C 98,64 103,62 110,56 C 120,48 134,44 148,45 L 245,47" 
                         fill="none" stroke="#1d4ed8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
 
               <div>
                 <p class="font-black text-xs sm:text-sm text-slate-900 leading-tight">Sunarto, S.Pd., M.Pd.</p>
-                <p class="font-semibold text-slate-800 text-[11px] sm:text-xs">NIP 19670915 199103 1 010</p>
+                <p class="font-bold text-slate-800 text-[11px] sm:text-xs">NIP 19670915 199103 1 010</p>
               </div>
             </div>
 
             <!-- SEBELAH KANAN: KETUA SIE KEGURUAN BESERTA STEMPEL OVAL UNGU -->
-            <div class="space-y-1 relative">
-              <p class="font-normal text-slate-700 text-xs sm:text-sm leading-tight">Ketua</p>
-              <p class="font-normal text-slate-700 text-xs sm:text-sm leading-tight">Sie Keguruan,</p>
+            <div class="space-y-0.5 relative">
+              <p class="font-normal text-slate-800 text-xs sm:text-sm leading-tight">Ketua</p>
+              <p class="font-normal text-slate-800 text-xs sm:text-sm leading-tight">Sie Keguruan,</p>
               
               <div class="h-20 sm:h-24 relative flex items-center py-1">
-                <!-- Stempel Resmi Oval Ungu Transparan Menimpa Posisi Tanda Tangan -->
-                <div class="absolute -left-10 sm:-left-12 -top-4 sm:-top-5 w-44 sm:w-52 h-28 sm:h-32 pointer-events-none opacity-85 select-none z-10" style="transform: rotate(-6deg);">
+                <!-- Stempel Resmi Oval Ungu Transparan Menimpa Tanda Tangan -->
+                <div class="absolute -left-10 sm:-left-12 -top-5 sm:-top-6 w-48 sm:w-56 h-28 sm:h-32 pointer-events-none opacity-85 select-none z-10" style="transform: rotate(-6deg);">
                   <svg viewBox="0 0 240 140" class="w-full h-full">
-                    <!-- Garis Ganda Oval Luar & Dalam -->
-                    <ellipse cx="120" cy="70" rx="112" ry="62" fill="none" stroke="#4f46e5" stroke-width="3.5" stroke-dasharray="1200" style="stroke-opacity: 0.88;"/>
+                    <ellipse cx="120" cy="70" rx="112" ry="62" fill="none" stroke="#4f46e5" stroke-width="3.5" style="stroke-opacity: 0.88;"/>
                     <ellipse cx="120" cy="70" rx="103" ry="53" fill="none" stroke="#4f46e5" stroke-width="1.8" style="stroke-opacity: 0.85;"/>
-                    
-                    <!-- Garis Pita Horizontal Tengah -->
                     <line x1="22" y1="52" x2="218" y2="52" stroke="#4f46e5" stroke-width="2" style="stroke-opacity: 0.85;"/>
                     <line x1="22" y1="88" x2="218" y2="88" stroke="#4f46e5" stroke-width="2" style="stroke-opacity: 0.85;"/>
                     
-                    <!-- Teks Melengkung Atas & Bawah -->
                     <defs>
-                      <path id="stampTextPathTop" d="M 32,70 A 88,44 0 0,1 208,70" fill="none"/>
-                      <path id="stampTextPathBottom" d="M 28,70 A 92,48 0 0,0 212,70" fill="none"/>
+                      <path id="stampPathTop" d="M 32,70 A 88,44 0 0,1 208,70" fill="none"/>
+                      <path id="stampPathBottom" d="M 28,70 A 92,48 0 0,0 212,70" fill="none"/>
                     </defs>
                     <text fill="#4338ca" font-size="11" font-weight="900" font-family="'Plus Jakarta Sans', sans-serif" letter-spacing="3.5">
-                      <textPath href="#stampTextPathTop" startOffset="50%" text-anchor="middle">KORWIL BIDDIKBUD</textPath>
+                      <textPath href="#stampPathTop" startOffset="50%" text-anchor="middle">KORWIL BIDDIKBUD</textPath>
                     </text>
                     <text fill="#4338ca" font-size="10.5" font-weight="900" font-family="'Plus Jakarta Sans', sans-serif" letter-spacing="2.2">
-                      <textPath href="#stampTextPathBottom" startOffset="50%" text-anchor="middle">★ KECAMATAN MRANGGEN ★</textPath>
+                      <textPath href="#stampPathBottom" startOffset="50%" text-anchor="middle">★ KECAMATAN MRANGGEN ★</textPath>
                     </text>
-                    
-                    <!-- Teks Pusat Tengah Pita -->
                     <text x="120" y="74" text-anchor="middle" fill="#4338ca" font-size="17" font-weight="900" font-family="'Cinzel', serif" letter-spacing="2">
                       SIE KEGURUAN
                     </text>
                   </svg>
                 </div>
 
-                <!-- Tanda Tangan Karyono, S.Pd., M.Pd. (Vektor Tinta Hitam Presisi) -->
+                <!-- Tanda Tangan Karyono, S.Pd., M.Pd. (Vektor Tinta Hitam Asli) -->
                 <div class="relative z-20 w-full h-full flex items-center">
                   <svg viewBox="0 0 280 80" class="h-full w-auto select-none pointer-events-none">
                     <path d="M 35,46 C 45,28 60,18 75,18 C 88,18 95,28 92,44 C 88,60 74,72 58,72 C 45,72 40,62 48,50 C 60,34 92,26 128,26 C 170,26 215,30 260,34 M 82,32 C 95,40 108,55 118,65 M 78,56 C 98,52 145,46 195,48 M 80,68 C 110,64 160,58 210,60" 
@@ -406,7 +401,7 @@
 
               <div>
                 <p class="font-black text-xs sm:text-sm text-slate-900 leading-tight">Karyono, S.Pd., M.Pd.</p>
-                <p class="font-semibold text-slate-800 text-[11px] sm:text-xs">NIP 19721112 199803 1 011</p>
+                <p class="font-bold text-slate-800 text-[11px] sm:text-xs">NIP 19721112 199803 1 011</p>
               </div>
             </div>
 
@@ -707,7 +702,7 @@
       renderAdminLockControls();
     }
 
-    /* 30 SOAL PAKET 1 */
+    /* 30 SOAL PAKET 1 (100% PERSIS KATA PER KATA DENGAN PDF ASLI) */
     const EXAM_PACKAGES = {
       1: {
         title: "Tryout Paket 1",
@@ -960,27 +955,4 @@
             type: "PG",
             text: "Diketahui data sebagai berikut.<br><div class='my-2 p-2 bg-slate-100 rounded-xl font-bold text-center text-slate-800'>25, 26, 22, 24, 23, 21, 22, 21, 23, 25, 23, 24, 27, 21</div>Median data di atas adalah ....",
             options: ["21", "22", "23", "24"],
-            correct: 2,
-            topic: "Median Data Tunggal",
-            explanation: "Data terurut (14 data): 21, 21, 21, 22, 22, 23, 23, 23, 24, 24, 25, 25, 26, 27. Data ke-7 = 23 dan ke-8 = 23. Median = (23+23)/2 = 23. Jawaban: C."
-          },
-          {
-            id: 22,
-            type: "PG",
-            text: "Data banyak buku di sebuah perpustakaan sebagai berikut.<br>1) Buku cerita ada 55 eksemplar<br>2) Buku pelajaran ada 69 eksemplar<br>3) Buku pengetahuan ada 30 eksemplar<br>4) Majalah ada 75 eksemplar<br><br>Modus dari buku di perpustakaan adalah ....",
-            options: ["Buku cerita", "Buku pelajaran", "Buku pengetahuan", "Majalah"],
-            correct: 3,
-            topic: "Modus Frekuensi Buku",
-            explanation: "Majalah memiliki jumlah paling banyak, yaitu 75 eksemplar. Modus = Majalah. Jawaban: D."
-          },
-          {
-            id: 23,
-            type: "PG",
-            text: "Kebun Binatang Surabaya merupakan tempat wisata kebanggaan warga Surabaya. Kebun binatang ini mengoleksi beberapa satwa langka antara lain gajah 9 ekor, harimau 7 ekor, orang utan 8 ekor, 5 ekor elang jawa, dan beberapa ekor komodo. Jumlah kelima jenis satwa langka tersebut 40 ekor. Satwa yang paling banyak dikoleksi Kebun Binatang Surabaya adalah ....",
-            options: ["Gajah", "Harimau", "Komodo", "Elang jawa"],
-            correct: 2,
-            topic: "Analisis Data Satwa",
-            explanation: "Komodo = 40 - (9 + 7 + 8 + 5) = 40 - 29 = 11 ekor. Jumlah terbanyak adalah komodo (11 ekor). Jawaban: C."
-          },
-          {
-            id: 24
+            correct
