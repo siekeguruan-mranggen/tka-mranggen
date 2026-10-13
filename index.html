@@ -5,14 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulasi TKA Matematika - Korwil Biddikbud Kec. Mranggen</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Cinzel:wght@600;700;800;900&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Cinzel:wght@600;700;800;900&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     .font-cinzel { font-family: 'Cinzel', serif; }
-    .font-signature { font-family: 'Great Vibes', cursive; }
     .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #5eead4; border-radius: 4px; }
-    
     @media print {
       body { background: white !important; }
       body * { visibility: hidden; }
@@ -58,7 +56,7 @@
   <!-- CONTAINER UTAMA -->
   <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col justify-center">
 
-    <!-- ================= 1. PORTAL SISWA ================= -->
+    <!-- 1. PORTAL SISWA -->
     <div id="studentPortal" class="w-full">
       
       <!-- SCREEN 1: PILIH PAKET TRYOUT -->
@@ -291,7 +289,7 @@
 
     </div>
 
-    <!-- ================= 2. MODAL PIAGAM PENGHARGAAN DIGITAL (DENGAN TTD & STEMPEL PERSIS) ================= -->
+    <!-- 2. MODAL PIAGAM PENGHARGAAN DIGITAL -->
     <div id="certificateModal" class="hidden fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
       <div class="bg-white max-w-4xl w-full rounded-2xl shadow-2xl relative p-3 sm:p-6 text-center border-4 border-amber-300">
         
@@ -338,7 +336,7 @@
             </div>
           </div>
 
-          <!-- TANDA TANGAN, STEMPEL & PENGESAHAN RESMI (PERSIS LAMPIRAN GAMBAR) -->
+          <!-- TANDA TANGAN & STEMPEL SESUAI SPESIMEN RESMI -->
           <div class="grid grid-cols-2 gap-4 sm:gap-12 px-4 sm:px-12 text-left text-slate-900 pt-3">
             
             <!-- SEBELAH KIRI: KORWIL BIDDIKBUD KEC. MRANGGEN -->
@@ -346,7 +344,6 @@
               <p class="font-normal text-slate-800 text-xs sm:text-sm leading-tight">Mengetahui</p>
               <p class="font-normal text-slate-800 text-xs sm:text-sm leading-tight">Korwil Biddikbud Kec. Mranggen</p>
               
-              <!-- Tanda Tangan Sunarto, S.Pd., M.Pd. (Vektor Tinta Biru Asli) -->
               <div class="h-20 sm:h-24 flex items-center py-1">
                 <svg viewBox="0 0 280 80" class="h-full w-auto select-none pointer-events-none" style="filter: drop-shadow(0.5px 0.5px 0px #1e3a8a);">
                   <path d="M 18,52 C 32,48 48,32 56,26 C 64,20 70,18 68,28 C 64,46 52,62 36,68 C 22,73 18,68 26,62 C 36,55 56,40 80,34 C 78,44 74,56 70,62 C 66,68 60,64 72,56 C 90,45 104,42 118,44 C 112,48 106,55 102,60 C 98,64 103,62 110,56 C 120,48 134,44 148,45 L 245,47" 
@@ -366,14 +363,13 @@
               <p class="font-normal text-slate-800 text-xs sm:text-sm leading-tight">Sie Keguruan,</p>
               
               <div class="h-20 sm:h-24 relative flex items-center py-1">
-                <!-- Stempel Resmi Oval Ungu Transparan Menimpa Tanda Tangan -->
+                <!-- Stempel Oval Ungu Menimpa Posisi Tanda Tangan -->
                 <div class="absolute -left-10 sm:-left-12 -top-5 sm:-top-6 w-48 sm:w-56 h-28 sm:h-32 pointer-events-none opacity-85 select-none z-10" style="transform: rotate(-6deg);">
                   <svg viewBox="0 0 240 140" class="w-full h-full">
                     <ellipse cx="120" cy="70" rx="112" ry="62" fill="none" stroke="#4f46e5" stroke-width="3.5" style="stroke-opacity: 0.88;"/>
                     <ellipse cx="120" cy="70" rx="103" ry="53" fill="none" stroke="#4f46e5" stroke-width="1.8" style="stroke-opacity: 0.85;"/>
                     <line x1="22" y1="52" x2="218" y2="52" stroke="#4f46e5" stroke-width="2" style="stroke-opacity: 0.85;"/>
                     <line x1="22" y1="88" x2="218" y2="88" stroke="#4f46e5" stroke-width="2" style="stroke-opacity: 0.85;"/>
-                    
                     <defs>
                       <path id="stampPathTop" d="M 32,70 A 88,44 0 0,1 208,70" fill="none"/>
                       <path id="stampPathBottom" d="M 28,70 A 92,48 0 0,0 212,70" fill="none"/>
@@ -390,7 +386,7 @@
                   </svg>
                 </div>
 
-                <!-- Tanda Tangan Karyono, S.Pd., M.Pd. (Vektor Tinta Hitam Asli) -->
+                <!-- Tanda Tangan Karyono, S.Pd., M.Pd. (Tinta Hitam Asli) -->
                 <div class="relative z-20 w-full h-full flex items-center">
                   <svg viewBox="0 0 280 80" class="h-full w-auto select-none pointer-events-none">
                     <path d="M 35,46 C 45,28 60,18 75,18 C 88,18 95,28 92,44 C 88,60 74,72 58,72 C 45,72 40,62 48,50 C 60,34 92,26 128,26 C 170,26 215,30 260,34 M 82,32 C 95,40 108,55 118,65 M 78,56 C 98,52 145,46 195,48 M 80,68 C 110,64 160,58 210,60" 
@@ -411,7 +407,7 @@
       </div>
     </div>
 
-    <!-- ================= 3. MODAL LOGIN ADMIN ================= -->
+    <!-- 3. MODAL LOGIN ADMIN -->
     <div id="adminLoginModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 no-print">
       <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl border border-white">
         <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center mx-auto mb-4">
@@ -444,7 +440,7 @@
       </div>
     </div>
 
-    <!-- ================= 4. PORTAL GURU / ADMIN ================= -->
+    <!-- 4. PORTAL GURU / ADMIN -->
     <div id="adminPortal" class="hidden space-y-6">
       
       <!-- HEADER DASHBOARD ADMIN -->
@@ -632,7 +628,6 @@
   </a>
 
   <script>
-    /* URL GOOGLE APPS SCRIPT ANDA */
     const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzpkTESrcR7QSSaL9gmL_Kd3VZIjKCQUOKEH8nkIbEwACX7UHSClFY887UaNIatthlo6Q/exec";
 
     const LIST_SEKOLAH_MRANGGEN = [
@@ -672,7 +667,6 @@
       window.addEventListener(evt, () => { if (isAdminLoggedIn) resetAdminInactivityTimer(); }, { passive: true });
     });
 
-    /* STATUS KUNCI & TOKEN */
     const DEFAULT_PACKAGE_STATUS = { 1: true, 2: false, 3: false, 4: false, 5: false };
     const DEFAULT_PACKAGE_TOKENS = { 1: "MRANGGEN1", 2: "MRANGGEN2", 3: "MRANGGEN3", 4: "MRANGGEN4", 5: "MRANGGEN5" };
 
@@ -702,7 +696,7 @@
       renderAdminLockControls();
     }
 
-    /* 30 SOAL PAKET 1 (100% PERSIS KATA PER KATA DENGAN PDF ASLI) */
+    /* 30 SOAL PAKET 1 RESMI */
     const EXAM_PACKAGES = {
       1: {
         title: "Tryout Paket 1",
@@ -790,18 +784,7 @@
           {
             id: 8,
             type: "MCMA",
-            text: `Budi melempar sebuah dadu bersisi enam. Hasil pelemparan ditunjukkan oleh gambar berikut.<br>
-            <div class='my-3 flex justify-center'>
-              <svg width="110" height="110" viewBox="0 0 120 120" class="drop-shadow">
-                <polygon points="60,10 105,32 60,54 15,32" fill="#f8fafc" stroke="#334155" stroke-width="2.5" stroke-linejoin="round"/>
-                <circle cx="60" cy="32" r="3" fill="#0f172a"/><circle cx="38" cy="22" r="3" fill="#0f172a"/><circle cx="82" cy="22" r="3" fill="#0f172a"/><circle cx="38" cy="42" r="3" fill="#0f172a"/><circle cx="82" cy="42" r="3" fill="#0f172a"/>
-                <polygon points="15,32 60,54 60,108 15,86" fill="#e2e8f0" stroke="#334155" stroke-width="2.5" stroke-linejoin="round"/>
-                <circle cx="30" cy="48" r="3" fill="#0f172a"/><circle cx="45" cy="55" r="3" fill="#0f172a"/><circle cx="30" cy="67" r="3" fill="#0f172a"/><circle cx="45" cy="74" r="3" fill="#0f172a"/><circle cx="30" cy="86" r="3" fill="#0f172a"/><circle cx="45" cy="93" r="3" fill="#0f172a"/>
-                <polygon points="60,54 105,32 105,86 60,108" fill="#cbd5e1" stroke="#334155" stroke-width="2.5" stroke-linejoin="round"/>
-                <circle cx="75" cy="55" r="3" fill="#0f172a"/><circle cx="90" cy="48" r="3" fill="#0f172a"/><circle cx="75" cy="93" r="3" fill="#0f172a"/><circle cx="90" cy="86" r="3" fill="#0f172a"/>
-              </svg>
-            </div>
-            Diketahui bahwa sisi depan menunjukkan angka 6. Pilihlah semua pernyataan yang benar terkait angka-angka yang tampak pada dadu tersebut! Pernyataan benar lebih dari satu.`,
+            text: "Budi melempar sebuah dadu bersisi enam. Hasil pelemparan ditunjukkan oleh gambar berikut.<br><div class='my-3 flex justify-center'><svg width='110' height='110' viewBox='0 0 120 120' class='drop-shadow'><polygon points='60,10 105,32 60,54 15,32' fill='#f8fafc' stroke='#334155' stroke-width='2.5'/><circle cx='60' cy='32' r='3' fill='#0f172a'/><circle cx='38' cy='22' r='3' fill='#0f172a'/><circle cx='82' cy='22' r='3' fill='#0f172a'/><circle cx='38' cy='42' r='3' fill='#0f172a'/><circle cx='82' cy='42' r='3' fill='#0f172a'/><polygon points='15,32 60,54 60,108 15,86' fill='#e2e8f0' stroke='#334155' stroke-width='2.5'/><circle cx='30' cy='48' r='3' fill='#0f172a'/><circle cx='45' cy='55' r='3' fill='#0f172a'/><circle cx='30' cy='67' r='3' fill='#0f172a'/><circle cx='45' cy='74' r='3' fill='#0f172a'/><circle cx='30' cy='86' r='3' fill='#0f172a'/><circle cx='45' cy='93' r='3' fill='#0f172a'/><polygon points='60,54 105,32 105,86 60,108' fill='#cbd5e1' stroke='#334155' stroke-width='2.5'/><circle cx='75' cy='55' r='3' fill='#0f172a'/><circle cx='90' cy='48' r='3' fill='#0f172a'/><circle cx='75' cy='93' r='3' fill='#0f172a'/><circle cx='90' cy='86' r='3' fill='#0f172a'/></svg></div>Diketahui bahwa sisi depan menunjukkan angka 6. Pilihlah semua pernyataan yang benar terkait angka-angka yang tampak pada dadu tersebut! Pernyataan benar lebih dari satu.",
             options: [
               "Urutan angka dari sisi depan, kanan, dan atas berturut-turut menunjukkan angka 6, 4, dan 5.",
               "Angka yang ditunjukkan oleh sisi bagian kanan dadu merupakan bilangan ganjil.",
@@ -809,7 +792,7 @@
             ],
             correct: [0, 2],
             topic: "Analisis Spasial Dadu",
-            explanation: "Depan = 6, Kanan = 4, Atas = 5. Angka sisi kanan adalah 4 (bilangan genap, opsi 2 salah). Atas × Kanan = 5 × 4 = 20. Opsi 1 dan 3 Benar."
+            explanation: "Depan = 6, Kanan = 4, Atas = 5. Angka sisi kanan adalah 4 (genap). 5 × 4 = 20. Opsi 1 dan 3 Benar."
           },
           {
             id: 9,
@@ -830,8 +813,8 @@
               "Total seluruh luas lahan yang dimiliki oleh Pak Faisal adalah 945 m²."
             ],
             correct: [0, 1],
-            topic: "Konversi Satuan Luas (are, ha)",
-            explanation: "Kolam = 12 × 100 = 1.200 m². Kebun = 0,75 × 10.000 = 7.500 m². Rumah = 750 m². Total = 750 + 1.200 + 7.500 = 9.450 m² (bukan 945 m²). Opsi 1 dan 2 Benar."
+            topic: "Konversi Satuan Luas",
+            explanation: "Kolam = 12 × 100 = 1.200 m². Kebun = 0,75 × 10.000 = 7.500 m². Rumah = 750 m². Total = 750 + 1.200 + 7.500 = 9.450 m². Opsi 1 dan 2 Benar."
           },
           {
             id: 11,
@@ -849,7 +832,7 @@
             options: ["07.45", "07.15", "06.45", "06.15"],
             correct: 2,
             topic: "Kecepatan, Jarak & Waktu",
-            explanation: "Waktu = 380 : 80 = 4,75 jam = 4 jam 45 menit. Waktu berangkat = 11.30 - 04.45 = 06.45. Jawaban: C."
+            explanation: "Waktu = 380 : 80 = 4 jam 45 menit. Waktu berangkat = 11.30 - 04.45 = 06.45. Jawaban: C."
           },
           {
             id: 13,
@@ -858,7 +841,7 @@
             options: ["960", "9.600", "57.600", "576.000"],
             correct: 3,
             topic: "Debit & Volume",
-            explanation: "8 jam = 8 × 60 = 480 menit. Volume = 1.200 liter/menit × 480 menit = 576.000 liter = 576.000 dm³. Jawaban: D."
+            explanation: "8 jam = 480 menit. Volume = 1.200 × 480 = 576.000 dm³. Jawaban: D."
           },
           {
             id: 14,
@@ -871,7 +854,7 @@
             ],
             correct: [0, 2],
             topic: "Sifat Bangun Datar",
-            explanation: "Bangun datar tersebut adalah persegi (memiliki 4 simetri lipat dan semua sudut 90°). Belah ketupat hanya memiliki 2 simetri lipat. Opsi 1 dan 3 Benar."
+            explanation: "Bangun datar tersebut adalah persegi (memiliki 4 simetri lipat dan sudut siku-siku 90°). Opsi 1 dan 3 Benar."
           },
           {
             id: 15,
@@ -880,79 +863,7 @@
             options: ["1.256", "125,6", "628", "62,8"],
             correct: 1,
             topic: "Keliling Lingkaran",
-            explanation: "Diameter = 2 × 20 = 40 cm. Keliling = π × d = 3,14 × 40 = 125,6 cm. Jawaban: B."
+            explanation: "Diameter = 40 cm. Keliling = 3,14 × 40 = 125,6 cm. Jawaban: B."
           },
           {
-            id: 16,
-            type: "MCMA",
-            text: "Sebuah segitiga memiliki alas 16 dm dan tinggi 15 dm. Berdasarkan informasi tersebut, pilihlah semua pernyataan yang benar! Pernyataan benar lebih dari satu.",
-            options: [
-              "Luas segitiga tersebut adalah 120 dm².",
-              "Luas segitiga tersebut sama dengan 1,2 m².",
-              "Luas segitiga tersebut sama dengan 1.200 cm²."
-            ],
-            correct: [0, 1],
-            topic: "Luas Segitiga",
-            explanation: "Luas = 1/2 × 16 × 15 = 120 dm². 120 dm² = 1,2 m² = 12.000 cm² (opsi 3 salah karena tertulis 1.200 cm²). Opsi 1 dan 2 Benar."
-          },
-          {
-            id: 17,
-            type: "PG",
-            text: "Rasio jumlah siswa laki-laki dengan siswa perempuan di suatu kelas adalah 3 : 5. Apabila jumlah seluruh siswa di kelas tersebut adalah berjumlah 40 anak, banyak siswa laki-laki di kelas tersebut berjumlah ... siswa.",
-            options: ["20", "25", "18", "15"],
-            correct: 3,
-            topic: "Rasio Perbandingan",
-            explanation: "Total rasio = 3 + 5 = 8. Siswa laki-laki = 3/8 × 40 = 15 siswa. Jawaban: D."
-          },
-          {
-            id: 18,
-            type: "PG",
-            text: "Sebuah ruang yang berukuran 4 m × 6 m akan dipasang ubin keramik dengan ukuran 20 cm × 20 cm. Satu dus berisi 10 buah keramik. Jika harga 1 dus keramik Rp15.000,00, biaya yang dikeluarkan adalah ....",
-            options: ["Rp9.600,00", "Rp60.000,00", "Rp240.000,00", "Rp900.000,00"],
-            correct: 3,
-            topic: "Luas Ruang & Biaya Keramik",
-            explanation: "Luas ruangan = 24 m² = 240.000 cm². Luas ubin = 400 cm². Kebutuhan ubin = 240.000 : 400 = 600 ubin = 60 dus. Biaya = 60 × Rp15.000,00 = Rp900.000,00. Jawaban: D."
-          },
-          {
-            id: 19,
-            type: "MCMA",
-            text: `Perhatikan gambar di bawah ini!<br>
-            <div class='my-3 flex justify-center'>
-              <svg width="130" height="130" viewBox="0 0 100 100" class="drop-shadow">
-                <circle cx="50" cy="50" r="46" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
-                <path d="M50,50 L50,4 A46,46 0 0,1 82.5,17.5 Z" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
-                <line x1="50" y1="4" x2="50" y2="96" stroke="#1e293b" stroke-width="1.5"/>
-                <line x1="4" y1="50" x2="96" y2="50" stroke="#1e293b" stroke-width="1.5"/>
-                <line x1="17.5" y1="17.5" x2="82.5" y2="82.5" stroke="#1e293b" stroke-width="1.5"/>
-                <line x1="17.5" y1="82.5" x2="82.5" y2="17.5" stroke="#1e293b" stroke-width="1.5"/>
-              </svg>
-            </div>
-            Manakah pecahan di bawah ini yang senilai dengan bagian yang diarsir pada gambar tersebut?<br>Pilihlah jawaban yang benar! Jawaban benar lebih dari satu.`,
-            options: [
-              "2/16 dan 3/24",
-              "2/16 dan 4/24",
-              "3/24 dan 4/32"
-            ],
-            correct: [0, 2],
-            topic: "Pecahan Senilai",
-            explanation: "Bagian diarsir adalah 1 dari 8 bagian = 1/8. Pecahan senilai: 1/8 = 2/16 = 3/24 = 4/32. Opsi 1 (2/16 dan 3/24) serta Opsi 3 (3/24 dan 4/32) Benar."
-          },
-          {
-            id: 20,
-            type: "Kategori",
-            text: "Sebuah bak mobil berukuran panjang 15 dm, lebar 12 dm, dan tinggi 5 dm. Bak mobil tersebut akan diisi pasir hingga penuh.<br><br>Berdasarkan situasi di atas, tentukan apakah pernyataan berikut <b>Benar</b> atau <b>Salah</b>!",
-            statements: [
-              "Volume pasir maksimal yang dapat ditampung oleh bak mobil tersebut adalah 900 dm³.",
-              "Jika pasir hanya diisi setengah dari tinggi bak maka volume pasir di dalam bak adalah 450 liter.",
-              "Luas alas bak mobil yang menyentuh pasir adalah 1800 dm²."
-            ],
-            correct: ["Benar", "Benar", "Salah"],
-            topic: "Volume & Luas Alas Balok",
-            explanation: "(1) Volume = 15 × 12 × 5 = 900 dm³ (Benar). (2) Setengah tinggi = 1/2 × 900 = 450 dm³ = 450 liter (Benar). (3) Luas alas = 15 × 12 = 180 dm², bukan 1.800 dm² (Salah). Kunci: Benar, Benar, Salah."
-          },
-          {
-            id: 21,
-            type: "PG",
-            text: "Diketahui data sebagai berikut.<br><div class='my-2 p-2 bg-slate-100 rounded-xl font-bold text-center text-slate-800'>25, 26, 22, 24, 23, 21, 22, 21, 23, 25, 23, 24, 27, 21</div>Median data di atas adalah ....",
-            options: ["21", "22", "23", "24"],
-            correct
+            id: 16
