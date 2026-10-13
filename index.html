@@ -1425,11 +1425,11 @@
       }
     }
 
-    /* SISTEM PENILAIAN TERBARU */
+    /* SISTEM PENILAIAN RESMI (TOTAL SKOR MAKSIMAL PASTI 49) */
     function submitExam() {
       clearInterval(examTimerInterval);
       let totalRawScore = 0;
-      let maxRawScore = 0;
+      let maxRawScore = 49;
       let detailAnswersRecord = {};
 
       currentQuestions.forEach((q) => {
@@ -1437,15 +1437,13 @@
         let isFullyCorrect = false;
 
         if (q.type === 'PG') {
-          // Pilihan Ganda: Benar = 1, Salah = 0
-          maxRawScore += 1;
+          // Pilihan Ganda (17 Soal): Benar = 1, Salah = 0
           if (userAnswers[q.id] === q.correct) {
             earned = 1;
             isFullyCorrect = true;
           }
         } else if (q.type === 'MCMA') {
-          // PG Kompleks MCMA: Benar 2 = 2, Benar 1 = 1, Salah = 0
-          maxRawScore += 2;
+          // PG Kompleks MCMA (7 Soal): Benar 2 = 2, Benar 1 = 1, Salah = 0
           const userArr = userAnswers[q.id] || [];
           const correctHits = userArr.filter(x => q.correct.includes(x)).length;
           const wrongHits = userArr.filter(x => !q.correct.includes(x)).length;
@@ -1457,15 +1455,14 @@
             earned = 1;
           }
         } else if (q.type === 'Kategori') {
-          // PG Kompleks Kategori: Benar 3 = 3, Benar 2 = 2, Benar 1 = 1, Salah = 0
-          maxRawScore += 3;
+          // PG Kompleks Kategori (6 Soal): Benar 3 = 3, Benar 2 = 2, Benar 1 = 1, Salah = 0
           const userMap = userAnswers[q.id] || {};
           let matchCount = 0;
           q.statements.forEach((_, sIdx) => { 
             if (userMap[sIdx] === q.correct[sIdx]) matchCount++; 
           });
           
-          earned = matchCount;
+          earned = matchCount; // Skor sama dengan jumlah pernyataan yang dijawab benar (0, 1, 2, atau 3)
           if (matchCount === q.statements.length) {
             isFullyCorrect = true;
           }
@@ -1475,9 +1472,8 @@
         detailAnswersRecord[q.id] = { earned: earned, isCorrect: isFullyCorrect };
       });
 
-      // Skor Maksimal = 49
-      // Nilai Akhir (Interval 0 - 100) = (Skor Mentah / Skor Maksimal) * 100
-      const final100 = Math.round((totalRawScore / maxRawScore) * 100);
+      // Nilai Akhir (Interval 0 - 100) = (Skor Mentah / 49) * 100
+      const final100 = Math.round((totalRawScore / 49) * 100);
       latestExamScore = final100;
       const isPass = final100 >= 70;
       const totalExamSeconds = EXAM_PACKAGES[currentPackageId].durationMinutes * 60;
@@ -1493,8 +1489,8 @@
         absen: currentUser.absen,
         package: `Paket ${currentPackageId}`,
         rawScore: totalRawScore,
-        maxRawScore: maxRawScore, // 49
-        finalScore: final100,     // 0 - 100
+        maxRawScore: 49,
+        finalScore: final100,
         status: isPass ? 'Lulus' : 'Remedial',
         durationMinutes: durMin,
         detailAnswers: detailAnswersRecord
@@ -1504,7 +1500,7 @@
       saveSubmission(record);
 
       document.getElementById('resTotalScore').innerText = `${totalRawScore}`;
-      document.getElementById('resMaxScoreLabel').innerText = `dari maks ${maxRawScore}`;
+      document.getElementById('resMaxScoreLabel').innerText = `dari maks 49`;
       document.getElementById('resScale100').innerText = `${final100}`;
       document.getElementById('resStatus').innerText = isPass ? 'Lulus' : 'Remedial';
       document.getElementById('resStatus').className = `text-base font-black mt-1 block ${isPass ? 'text-emerald-600' : 'text-rose-600'}`;
@@ -1536,7 +1532,6 @@
       renderDiscussions();
       showScreen('viewResult');
     }
-
     function openCertificateModal() {
       if (!latestSubmissionData) return;
       const sub = latestSubmissionData;
