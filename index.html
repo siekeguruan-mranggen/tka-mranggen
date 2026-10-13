@@ -337,22 +337,72 @@
             </div>
           </div>
 
-          <div class="flex justify-between items-end px-4 sm:px-12 text-center text-xs">
-            <div>
-              <p class="text-[10px] text-slate-500">Mengetahui,</p>
-              <p class="font-bold text-slate-800 mt-1">Koordinator Wilayah</p>
-              <div class="h-12 flex items-center justify-center font-signature text-2xl text-teal-800">Mranggen Biddikbud</div>
-              <p class="font-extrabold text-slate-900 border-t border-slate-300 pt-1">Korwil Mranggen</p>
+<!-- TANDA TANGAN & STEMPEL RESMI SESUAI SPESIMEN -->
+          <div class="grid grid-cols-2 gap-4 sm:gap-12 px-4 sm:px-12 text-left text-slate-900 pt-3">
+            
+            <!-- SEBELAH KIRI: KORWIL BIDDIKBUD KEC. MRANGGEN -->
+            <div class="space-y-0.5">
+              <p class="font-normal text-slate-800 text-xs sm:text-sm leading-tight">Mengetahui</p>
+              <p class="font-normal text-slate-800 text-xs sm:text-sm leading-tight">Korwil Biddikbud Kec. Mranggen</p>
+              
+              <!-- Tanda Tangan Sunarto, S.Pd., M.Pd. (Vektor Biru Asli) -->
+              <div class="h-20 sm:h-24 flex items-center py-1">
+                <svg viewBox="0 0 280 80" class="h-full w-auto select-none pointer-events-none" style="filter: drop-shadow(0.5px 0.5px 0px #1e3a8a);">
+                  <path d="M 18,52 C 32,48 48,32 56,26 C 64,20 70,18 68,28 C 64,46 52,62 36,68 C 22,73 18,68 26,62 C 36,55 56,40 80,34 C 78,44 74,56 70,62 C 66,68 60,64 72,56 C 90,45 104,42 118,44 C 112,48 106,55 102,60 C 98,64 103,62 110,56 C 120,48 134,44 148,45 L 245,47" 
+                        fill="none" stroke="#1d4ed8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+
+              <div>
+                <p class="font-black text-xs sm:text-sm text-slate-900 leading-tight">Sunarto, S.Pd., M.Pd.</p>
+                <p class="font-bold text-slate-800 text-[11px] sm:text-xs">NIP 19670915 199103 1 010</p>
+              </div>
             </div>
-            <div class="w-16 h-16 rounded-full border-2 border-amber-500 flex items-center justify-center text-amber-700 text-xs font-black uppercase shadow-sm">
-              RESMI
+
+            <!-- SEBELAH KANAN: KETUA SIE KEGURUAN + STEMPEL OVAL UNGU -->
+            <div class="space-y-0.5 relative">
+              <p class="font-normal text-slate-800 text-xs sm:text-sm leading-tight">Ketua</p>
+              <p class="font-normal text-slate-800 text-xs sm:text-sm leading-tight">Sie Keguruan,</p>
+              
+              <div class="h-20 sm:h-24 relative flex items-center py-1">
+                <!-- Stempel Oval Ungu Menimpa Posisi Tanda Tangan -->
+                <div class="absolute -left-10 sm:-left-12 -top-5 sm:-top-6 w-48 sm:w-56 h-28 sm:h-32 pointer-events-none opacity-85 select-none z-10" style="transform: rotate(-6deg);">
+                  <svg viewBox="0 0 240 140" class="w-full h-full">
+                    <ellipse cx="120" cy="70" rx="112" ry="62" fill="none" stroke="#4f46e5" stroke-width="3.5" style="stroke-opacity: 0.88;"/>
+                    <ellipse cx="120" cy="70" rx="103" ry="53" fill="none" stroke="#4f46e5" stroke-width="1.8" style="stroke-opacity: 0.85;"/>
+                    <line x1="22" y1="52" x2="218" y2="52" stroke="#4f46e5" stroke-width="2" style="stroke-opacity: 0.85;"/>
+                    <line x1="22" y1="88" x2="218" y2="88" stroke="#4f46e5" stroke-width="2" style="stroke-opacity: 0.85;"/>
+                    <defs>
+                      <path id="stampPathTop" d="M 32,70 A 88,44 0 0,1 208,70" fill="none"/>
+                      <path id="stampPathBottom" d="M 28,70 A 92,48 0 0,0 212,70" fill="none"/>
+                    </defs>
+                    <text fill="#4338ca" font-size="11" font-weight="900" font-family="'Plus Jakarta Sans', sans-serif" letter-spacing="3.5">
+                      <textPath href="#stampPathTop" startOffset="50%" text-anchor="middle">KORWIL BIDDIKBUD</textPath>
+                    </text>
+                    <text fill="#4338ca" font-size="10.5" font-weight="900" font-family="'Plus Jakarta Sans', sans-serif" letter-spacing="2.2">
+                      <textPath href="#stampPathBottom" startOffset="50%" text-anchor="middle">★ KECAMATAN MRANGGEN ★</textPath>
+                    </text>
+                    <text x="120" y="74" text-anchor="middle" fill="#4338ca" font-size="17" font-weight="900" font-family="'Cinzel', serif" letter-spacing="2">
+                      SIE KEGURUAN
+                    </text>
+                  </svg>
+                </div>
+
+                <!-- Tanda Tangan Karyono, S.Pd., M.Pd. (Vektor Hitam Asli) -->
+                <div class="relative z-20 w-full h-full flex items-center">
+                  <svg viewBox="0 0 280 80" class="h-full w-auto select-none pointer-events-none">
+                    <path d="M 35,46 C 45,28 60,18 75,18 C 88,18 95,28 92,44 C 88,60 74,72 58,72 C 45,72 40,62 48,50 C 60,34 92,26 128,26 C 170,26 215,30 260,34 M 82,32 C 95,40 108,55 118,65 M 78,56 C 98,52 145,46 195,48 M 80,68 C 110,64 160,58 210,60" 
+                          fill="none" stroke="#0f172a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+
+              <div>
+                <p class="font-black text-xs sm:text-sm text-slate-900 leading-tight">Karyono, S.Pd., M.Pd.</p>
+                <p class="font-bold text-slate-800 text-[11px] sm:text-xs">NIP 19721112 199803 1 011</p>
+              </div>
             </div>
-            <div>
-              <p class="text-[10px] text-slate-500" id="certDate">Mranggen, 13 Oktober 2026</p>
-              <p class="font-bold text-slate-800 mt-1">Ketua Sie Keguruan</p>
-              <div class="h-12 flex items-center justify-center font-signature text-2xl text-teal-800">M. Imam Suwiji</div>
-              <p class="font-extrabold text-slate-900 border-t border-slate-300 pt-1">M. Imam Suwiji, S.Pd.</p>
-            </div>
+
           </div>
         </div>
       </div>
