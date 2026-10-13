@@ -119,9 +119,9 @@
           <div class="p-4 bg-teal-50 rounded-2xl border border-teal-100 text-xs text-teal-950 leading-relaxed font-medium">
             <span class="font-extrabold text-teal-900 block mb-1">⏱️ Petunjuk Pelaksanaan:</span>
             • Timer <b>75 Menit</b> otomatis berjalan mundur.<br>
-            • Pilihan Ganda: Benar <b>skor 4</b>, Salah 0.<br>
-            • PG Kompleks MCMA: Benar 2 <b>skor 3</b>, Benar 1 <b>skor 2</b>.<br>
-            • PG Kompleks Kategori: Benar semua <b>skor 2</b>, Sebagian <b>skor 1</b>.<br>
+            • Pilihan Ganda: Benar <b>skor 3</b>, Salah 0.<br>
+            • PG Kompleks MCMA: Benar 2 <b>skor 4</b>, Benar 1 <b>skor 2</b>.<br>
+            • PG Kompleks Kategori: Benar semua <b>skor 3 (soal 30: skor 6)</b>.<br>
             • <b class="text-rose-700">Kunci & pembahasan hanya terbuka untuk nilai di atas 90!</b>
           </div>
 
@@ -164,7 +164,7 @@
                     <span class="px-3 py-1 rounded-lg bg-teal-600 text-white font-black text-xs" id="questionNumberBadge">Soal No. 1</span>
                     <span class="text-xs font-bold text-slate-600" id="questionTypeBadge">Pilihan Ganda</span>
                   </div>
-                  <span class="text-xs font-bold text-slate-400" id="questionPointsRule">Skor: Benar 4 | Salah 0</span>
+                  <span class="text-xs font-bold text-slate-400" id="questionPointsRule">Skor: Benar 3 | Salah 0</span>
                 </div>
 
                 <div id="questionContent" class="text-slate-800 text-sm sm:text-base leading-relaxed space-y-4 font-normal"></div>
@@ -218,7 +218,7 @@
             <div class="p-4 rounded-2xl bg-teal-50 border border-teal-100">
               <span class="block text-[11px] font-bold text-teal-600 uppercase">Skor Mentah</span>
               <span class="text-2xl font-black text-teal-800" id="resTotalScore">0</span>
-              <span class="text-[10px] text-slate-400 block" id="resMaxScoreLabel">dari maks 88</span>
+              <span class="text-[10px] text-slate-400 block" id="resMaxScoreLabel">dari maks 100</span>
             </div>
             <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-100">
               <span class="block text-[11px] font-bold text-emerald-600 uppercase">Nilai Akhir (100)</span>
@@ -749,9 +749,14 @@
       const q = currentQuestions[idx];
 
       document.getElementById('questionNumberBadge').innerText = `Soal No. ${idx + 1}`;
-      let typeLabel = "Pilihan Ganda Sederhana", pointsRule = "Benar: 4 | Salah: 0";
-      if (q.type === 'MCMA') { typeLabel = "PG Kompleks (MCMA)"; pointsRule = "Benar 2: skor 3 | Benar 1: skor 2"; }
-      else if (q.type === 'Kategori') { typeLabel = "PG Kompleks Kategori"; pointsRule = "Benar semua: skor 2 | Sebagian: 1"; }
+      let typeLabel = "Pilihan Ganda Sederhana", pointsRule = "Benar: 3 | Salah: 0";
+      if (q.type === 'MCMA') { 
+        typeLabel = "PG Kompleks (MCMA)"; 
+        pointsRule = "Benar 2: skor 4 | Benar 1: skor 2"; 
+      } else if (q.type === 'Kategori') { 
+        typeLabel = "PG Kompleks Kategori"; 
+        pointsRule = (idx === 29) ? "Benar semua: skor 6 | Sebagian: 3" : "Benar semua: skor 3 | Sebagian: 1"; 
+      }
 
       document.getElementById('questionTypeBadge').innerText = typeLabel;
       document.getElementById('questionPointsRule').innerText = pointsRule;
@@ -829,34 +834,45 @@
       }
     }
 
+    /* SISTEM PENILAIAN SKOR BULAT PAS 100 POIN */
     function submitExam() {
       clearInterval(examTimerInterval);
-      let totalRawScore = 0, maxRawScore = 0;
+      let totalRawScore = 0;
+      let maxRawScore = 0;
 
-      currentQuestions.forEach(q => {
+      currentQuestions.forEach((q, idx) => {
         let earned = 0;
         if (q.type === 'PG') {
-          maxRawScore += 4;
-          if (userAnswers[q.id] === q.correct) earned = 4;
-        } else if (q.type === 'MCMA') {
+          // PG Biasa: 3 Poin
           maxRawScore += 3;
+          if (userAnswers[q.id] === q.correct) earned = 3;
+        } else if (q.type === 'MCMA') {
+          // PG Kompleks MCMA: 4 Poin (Benar 2 = 4, Benar 1 = 2)
+          maxRawScore += 4;
           const userArr = userAnswers[q.id] || [];
           const correctHits = userArr.filter(x => q.correct.includes(x)).length;
           const wrongHits = userArr.filter(x => !q.correct.includes(x)).length;
-          if (wrongHits === 0 && correctHits === 2) earned = 3;
+          if (wrongHits === 0 && correctHits === 2) earned = 4;
           else if (wrongHits === 0 && correctHits === 1) earned = 2;
         } else if (q.type === 'Kategori') {
-          maxRawScore += 2;
+          const isLastKategori = (idx === 29); // Soal no. 30 berbobot 6 poin
+          const maxKatPoint = isLastKategori ? 6 : 3;
+          const partialPoint = isLastKategori ? 3 : 1;
+          
+          maxRawScore += maxKatPoint;
           const userMap = userAnswers[q.id] || {};
           let matchCount = 0;
           q.statements.forEach((_, sIdx) => { if (userMap[sIdx] === q.correct[sIdx]) matchCount++; });
-          if (matchCount === q.statements.length) earned = 2;
-          else if (matchCount > 0) earned = 1;
+          
+          if (matchCount === q.statements.length) earned = maxKatPoint;
+          else if (matchCount > 0) earned = partialPoint;
         }
         totalRawScore += earned;
       });
 
-      const final100 = Math.round((totalRawScore / maxRawScore) * 100);
+      // Total maksimal skor mentah menjadi tepat 100 poin bulat
+      maxRawScore = 100;
+      const final100 = Math.min(100, totalRawScore);
       latestExamScore = final100;
       const isPass = final100 >= 70;
       const totalExamSeconds = EXAM_PACKAGES[currentPackageId].durationMinutes * 60;
@@ -872,7 +888,7 @@
         absen: currentUser.absen,
         package: `Paket ${currentPackageId}`,
         rawScore: totalRawScore,
-        maxRawScore: maxRawScore,
+        maxRawScore: 100,
         finalScore: final100,
         status: isPass ? 'Lulus' : 'Remedial',
         durationMinutes: durMin
@@ -881,7 +897,7 @@
       saveSubmission(record);
 
       document.getElementById('resTotalScore').innerText = `${totalRawScore}`;
-      document.getElementById('resMaxScoreLabel').innerText = `dari maks ${maxRawScore}`;
+      document.getElementById('resMaxScoreLabel').innerText = `dari maks 100`;
       document.getElementById('resScale100').innerText = `${final100}`;
       document.getElementById('resStatus').innerText = isPass ? 'Lulus' : 'Remedial';
       document.getElementById('resStatus').className = `text-base font-black mt-1 block ${isPass ? 'text-emerald-600' : 'text-rose-600'}`;
