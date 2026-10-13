@@ -453,9 +453,7 @@
   </a>
 
   <script>
-    /* =====================================================================
-       URL GOOGLE APPS SCRIPT LENGKAP YANG SUDAH TERVERIFIKASI
-       ===================================================================== */
+    /* URL GOOGLE APPS SCRIPT ANDA */
     const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzpkTESrcR7QSSaL9gmL_Kd3VZIjKCQUOKEH8nkIbEwACX7UHSClFY887UaNIatthlo6Q/exec";
 
     const LIST_SEKOLAH_MRANGGEN = [
@@ -598,7 +596,7 @@
       }
     }
 
-    /* ENGINE CBT & TIMER */
+    /* CBT ENGINE */
     let currentPackageId = 1, currentQuestions = [], currentUser = { name: '', school: '', className: '', absen: '' };
     let currentQuestionIdx = 0, userAnswers = {}, raguStatus = {}, examTimerInterval = null, timeRemaining = 75 * 60, latestExamScore = 0;
 
@@ -607,28 +605,25 @@
       return local ? JSON.parse(local) : [];
     }
 
-    // PENGIRIMAN DATA FORMULIR KE GOOGLE APPS SCRIPT TANPA TERBLOKIR CORS
-    async function saveSubmission(sub) {
+    // PENGIRIMAN DATA VIA IMAGE BEACON (100% TEMBUS ANTI BLOKIR BROWSER)
+    function saveSubmission(sub) {
       const list = getStoredSubmissions();
       list.push(sub);
       localStorage.setItem('tka_submissions_v4', JSON.stringify(list));
 
       if (GOOGLE_APPS_SCRIPT_URL) {
         try {
-          const formData = new URLSearchParams();
-          formData.append('data', JSON.stringify(sub));
-
-          await fetch(GOOGLE_APPS_SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: formData.toString()
-          });
-
+          const payload = encodeURIComponent(JSON.stringify(sub));
+          const pingUrl = GOOGLE_APPS_SCRIPT_URL + "?data=" + payload + "&t=" + Date.now();
+          const beacon = new Image();
+          beacon.src = pingUrl;
+          
           const statusElem = document.getElementById('submitStatusText');
-          if (statusElem) statusElem.innerText = "Nilai Anda telah otomatis terkirim ke Google Spreadsheet Korwil Mranggen.";
+          if (statusElem) {
+            statusElem.innerText = "Nilai tryout Anda telah otomatis tercatat di data rekapitulasi Korwil Mranggen.";
+          }
         } catch (err) {
-          console.warn("Sinkronisasi cloud tertunda:", err);
+          console.warn("Koneksi cloud offline:", err);
         }
       }
     }
@@ -807,7 +802,7 @@
       }
     }
 
-    async function submitExam() {
+    function submitExam() {
       clearInterval(examTimerInterval);
       let totalRawScore = 0, maxRawScore = 0;
 
@@ -856,7 +851,7 @@
         durationMinutes: durMin
       };
 
-      await saveSubmission(record);
+      saveSubmission(record);
 
       document.getElementById('resTotalScore').innerText = `${totalRawScore}`;
       document.getElementById('resMaxScoreLabel').innerText = `dari maks ${maxRawScore}`;
@@ -974,7 +969,6 @@
       }
     }
 
-    // TARIK NILAI DARI GOOGLE SPREADSHEET SECARA REAL-TIME
     async function syncOnlineData() {
       const btn = document.getElementById('btnSync');
       if (btn) btn.innerText = "⏳ Mengambil Data...";
@@ -1139,9 +1133,7 @@
       populateSchoolDropdowns();
       renderPackagesMenu();
       if (isAdminLoggedIn) resetAdminInactivityTimer();
-      // Tarik nilai otomatis dari cloud saat web dimuat
       syncOnlineData();
-      // Tarik nilai baru secara otomatis setiap 10 detik di latar belakang
       setInterval(() => { if (isAdminLoggedIn) syncOnlineData(); }, 10000);
     });
   </script>
