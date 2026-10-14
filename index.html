@@ -630,7 +630,7 @@
 
   <script>
     /* URL GOOGLE APPS SCRIPT ANDA */
-    const FIREBASE_DB_URL = "https://tka-mranggen-2026-default-rtdb.firebaseio.com/nilai_tryout.json";
+    const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzpkTESrcR7QSSaL9gmL_Kd3VZIjKCQUOKEH8nkIbEwACX7UHSClFY887UaNIatthlo6Q/exec";
 
     const LIST_SEKOLAH_MRANGGEN = [
       "SD NEGERI BANDUNGREJO 1 MRANGGEN", "SD NEGERI BANDUNGREJO 2 MRANGGEN", "SD NEGERI BANYUMENENG 1",
@@ -1182,31 +1182,45 @@
       return local ? JSON.parse(local) : [];
     }
 
-    async function saveSubmission(sub) {
-      // 1. Simpan cadangan di perangkat lokal siswa
+    function saveSubmission(sub) {
       const list = getStoredSubmissions();
       list.push(sub);
       localStorage.setItem('tka_submissions_v4', JSON.stringify(list));
       localStorage.setItem('tka_submissions_backup_snapshot_v4', JSON.stringify(list));
 
-      // 2. Kirim langsung ke Firebase Cloud Database (Sanggup Ribuan Siswa Serentak)
-      if (typeof FIREBASE_DB_URL !== 'undefined' && FIREBASE_DB_URL) {
+      if (GOOGLE_APPS_SCRIPT_URL) {
         try {
-          await fetch(FIREBASE_DB_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(sub)
-          });
+          const iframeName = 'hidden_submit_iframe_' + Date.now();
+          const iframe = document.createElement('iframe');
+          iframe.setAttribute('name', iframeName);
+          iframe.setAttribute('id', iframeName);
+          iframe.style.display = 'none';
+          document.body.appendChild(iframe);
 
-          const statusElem = document.getElementById('submitStatusText');
-          if (statusElem) {
-            statusElem.innerText = "Nilai tryout Anda telah otomatis tercatat di server cloud Korwil Mranggen.";
-          }
-        } catch (err) {
-          console.warn("Koneksi cloud offline:", err);
-        }
-      }
-    }
+          const form = document.createElement('form');
+          form.setAttribute('method', 'POST');
+          form.setAttribute('action', GOOGLE_APPS_SCRIPT_URL);
+          form.setAttribute('target', iframeName);
+          form.style.display = 'none';
+
+          const inputData = document.createElement('input');
+          inputData.setAttribute('type', 'hidden');
+          inputData.setAttribute('name', 'data');
+          inputData.setAttribute('value', JSON.stringify(sub));
+          form.appendChild(inputData);
+
+          document.body.appendChild(form);
+          form.submit();
+
+          setTimeout(() => {
+            try {
+              document.body.removeChild(form);
+              document.body.removeChild(iframe);
+            } catch (cleanErr) {
+              console.warn("Pembersihan form:", cleanErr);
+            }
+          }, 4000);
+
           const statusElem = document.getElementById('submitStatusText');
           if (statusElem) {
             statusElem.innerText = "Nilai tryout Anda telah otomatis tercatat di data rekapitulasi Korwil Mranggen.";
@@ -1718,22 +1732,21 @@
     async function syncOnlineData() {
       const btn = document.getElementById('btnSync');
       if (btn) btn.innerText = "⏳ Mengambil Data...";
-      if (typeof FIREBASE_DB_URL !== 'undefined' && FIREBASE_DB_URL) {
+      if (GOOGLE_APPS_SCRIPT_URL) {
         try {
-          const res = await fetch(FIREBASE_DB_URL);
-          const dataObj = await res.json();
-          if (dataObj) {
-            // Mengubah objek data Firebase menjadi daftar baris nilai
-            const dataArray = Object.keys(dataObj).map(key => dataObj[key]);
-            localStorage.setItem('tka_submissions_v4', JSON.stringify(dataArray));
+          const res = await fetch(GOOGLE_APPS_SCRIPT_URL);
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            localStorage.setItem('tka_submissions_v4', JSON.stringify(data));
           }
         } catch (e) {
-          console.warn("Gagal sinkron data cloud:", e);
+          console.warn("Gagal sinkron cloud:", e);
         }
       }
       if (btn) btn.innerText = "🔄 Ambil Nilai Terbaru";
       renderAdminDashboard();
     }
+
     function renderAdminDashboard() {
       renderAdminLockControls();
       const allSubmissions = getStoredSubmissions();
